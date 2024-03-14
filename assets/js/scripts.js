@@ -51,8 +51,6 @@ const generatePassword = (
 
   if (generators.length === 0) return;
 
-  console.log(generators.length);
-
   for (i = 0; i < passwordLength; i += generators.length) {
     generators.forEach(() => {
       const randomValue =
@@ -77,4 +75,18 @@ generatePasswordButton.addEventListener("click", () => {
 
 openCloseGeneratorButton.addEventListener("click", () => {
   generatePasswordContainer.classList.toggle("hide");
+});
+
+copyPasswordButton.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const password = generatedPasswordElement.querySelector("h4").innerText;
+
+  navigator.clipboard.writeText(password).then(() => {
+    copyPasswordButton.innerText = "Senha copiada com sucesso!";
+
+    setTimeout(() => {
+      copyPasswordButton.innerText = "Copiar";
+    }, 1000);
+  });
 });
